@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+	<bean id="Product" class="com.shoppingcart.beans.Product">
+		<property name="id" value="10"></property>
+		<property name="name" value="Samsung"></property>
+
+	</bean>
+	<bean id="vendor" class="com.shoppingcart.beans.Vendor">
+		<property name="name" value="ABC Company"></property>
+		<property name="city" value="Mumbai"></property>
+	</bean>
+	<context:component-scan base-package="com.shoppingcart.beans,com.shoppingcart.model">
+	</context:component-scan>
+	<context:annotation-config></context:annotation-config>
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="username" value="${jdbc.username}"></property>
+
+		<property name="password" value="${jdbc.password}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+	</bean>
+	<context:property-placeholder location="classpath:com/shoppingcart/model/jdbc.properties" />
+	<bean name="Account" class="com.shoppingcart.model.Account"></bean>
+</beans>
