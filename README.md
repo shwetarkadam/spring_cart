@@ -7,6 +7,7 @@ DOne using html only
 
 mysql db used
 
+Not used Apache Tiles
 Features:-
 1.Vendor registration
 
