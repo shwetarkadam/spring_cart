@@ -2,7 +2,7 @@
 Practice of spring framework
 DOes not have any specil GUI 
 DOne using html only
-
+mysql db used
 Features:-
 1.Vendor registration
 2.Login,Logout
