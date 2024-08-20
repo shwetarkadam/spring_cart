@@ -52,24 +52,25 @@ public class Account {
 		
 	}
 	public Product getSingleProduct(int id) {
-		MapSqlParameterSource map= new MapSqlParameterSource();
-		map.addValue("id",id);
-		return jdbc.queryForObject("select * from product where id=:id", map,new RowMapper<Product>(){
+    // SQL Injection vulnerability: user input is directly concatenated into the query string
+    String query = "select * from product where id=" + id;
 
-			@Override
-			public Product mapRow(ResultSet rs, int arg1) throws SQLException {
-				Product p=new Product();
-				
-				p.setId(rs.getInt("id"));
-				p.setName(rs.getString("name"));
-				p.setPrice(rs.getString("price"));
-				p.setDesc(rs.getString("description"));
-				
-				return p;
-			}
-			
-		});
-	}
+    return jdbc.queryForObject(query, new RowMapper<Product>() {
+
+        @Override
+        public Product mapRow(ResultSet rs, int arg1) throws SQLException {
+            Product p = new Product();
+
+            p.setId(rs.getInt("id"));
+            p.setName(rs.getString("name"));
+            p.setPrice(rs.getString("price"));
+            p.setDesc(rs.getString("description"));
+
+            return p;
+        }
+
+    });
+}
 
 	public void createVendor(Vendor v) {
 	//BeanPropertySqlParameterSource param=new BeanPropertySqlParameterSource(v);
